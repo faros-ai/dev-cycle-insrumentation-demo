@@ -5,4 +5,4 @@ set -e
 commit_sha=$(git rev-parse HEAD)
 commit_msg=$(git log --format=%s -n 1 "$commit_sha")
 
-printf "Uploading commit %s with message %s\n" "$commit_sha" "$commit_msg"
+printf "Uploading commit %s with message '%s'\n" "$commit_sha" "$commit_msg"
