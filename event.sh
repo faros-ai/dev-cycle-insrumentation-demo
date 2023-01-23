@@ -5,14 +5,17 @@
 # - FAROS_GRAPH
 # - FAROS_URL
 
-FAROS_GRAPH='will'
-FAROS_URL='https://dev.api.faros.ai'
+export FAROS_GRAPH='will'
+export FAROS_URL='https://dev.api.faros.ai'
+export FAROS_RUN_PIPELINE="$(hostname)"
+export FAROS_RUN_ORG='faros-ai'
+export FAROS_RUN_SOURCE='Mock'
+export FAROS_RUN_ID="$(git branch --show-current)"
 
 function parseFlags() {
     while (($#)); do
         case "$1" in
-            --run)      run="$2"            && shift 2 ;;
-            --step)     run_step="$2"       && shift 2 ;;
+            --step) run_step="$2" && shift 2 ;;
             *)
                 POSITIONAL+=("$1") # save it in an array for later
                 shift ;;
@@ -48,7 +51,6 @@ function processType() {
 function run_start(){
     echo "Sending run start event"
     ./faros_event.sh CI \
-        --run "${run}" \
         --run_status "Running" \
         --run_start_time "Now"
 }
@@ -56,7 +58,6 @@ function run_start(){
 function run_success(){
     echo "Sending run success event"
     ./faros_event.sh CI \
-        --run "${run}" \
         --run_status "Success" \
         --run_end_time "Now"
 }
@@ -64,7 +65,6 @@ function run_success(){
 function run_failed(){
     echo "Sending run failed event"
     ./faros_event.sh CI \
-        --run "${run}" \
         --run_status "Failed" \
         --run_end_time "Now"
 }
@@ -72,8 +72,8 @@ function run_failed(){
 function run_step_start(){
     echo "Sending run step start event"
     ./faros_event.sh CI \
-        --run "${run}" \
-        --run_step "${run_step}" \
+        --run_step_id "${run_step}  $(jq -nr 'now | todate')" \
+        --run_step_name "${run_step}" \
         --run_step_status "Running" \
         --run_step_start_time "Now"
 }
@@ -81,8 +81,8 @@ function run_step_start(){
 function run_step_success(){
     echo "Sending run step success event"
     ./faros_event.sh CI \
-        --run "${run}" \
-        --run_step "${run_step}" \
+        --run_step_id "${run_step}  $(jq -nr 'now | todate')" \
+        --run_step_name "${run_step}" \
         --run_step_status "Success" \
         --run_step_end_time "Now"
 }
@@ -90,8 +90,8 @@ function run_step_success(){
 function run_step_failed(){
     echo "Sending run failed event"
     ./faros_event.sh CI \
-        --run "${run}" \
-        --run_step "${run_step}" \
+        --run_step_id "${run_step}  $(jq -nr 'now | todate')" \
+        --run_step_name "${run_step}" \
         --run_step_status "Failed" \
         --run_step_end_time "Now"
 }
