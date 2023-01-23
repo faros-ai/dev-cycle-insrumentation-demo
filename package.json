@@ -1,5 +1,5 @@
 {
-  "name": "altoids",
+  "name": "lighthouse",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -10,15 +10,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/faros-ai/altoids.git"
+    "url": "git+https://github.com/faros-ai/lighthouse.git"
   },
   "keywords": [],
   "author": "“Will Marks” <“will@faros.ai”>",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/faros-ai/altoids/issues"
+    "url": "https://github.com/faros-ai/lighthouse/issues"
   },
-  "homepage": "https://github.com/faros-ai/altoids#readme",
+  "homepage": "https://github.com/faros-ai/lighthouse#readme",
   "devDependencies": {
     "typescript": "^4.9.4"
   }
