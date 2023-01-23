@@ -10,4 +10,4 @@ fi
 # TODO: determine if new branch via pre-checkout hook
 branch=$(git rev-parse --abbrev-ref HEAD)
 
-printf "./event.sh run-start %s" "$branch"
+printf "./event.sh run-start %s\n" "$branch"
