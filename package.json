@@ -4,11 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "tsc -p src",
+    "build": "export STEP_ID=\"$(jq -nr 'now | todate')\"; ./bin/faros_event_helper.sh RUN_STEP_START --step BUILD --step-id $STEP_ID && tsc -p src; EXIT_CODE=$? ./bin/faros_event_helper.sh RUN_STEP_END --step BUILD --step-id $STEP_ID",
+    "test": "export STEP_ID=\"$(jq -nr 'now | todate')\"; ./bin/faros_event_helper.sh RUN_STEP_START --step TEST --step-id $STEP_ID && jest --verbose --color; EXIT_CODE=$? ./bin/faros_event_helper.sh RUN_STEP_END --step TEST --step-id $STEP_ID",
     "clean": "rm -rf lib node_modules out",
-    "test": "jest --verbose --color",
     "preinstall": "./bin/faros_event_helper.sh RUN_STEP_START --step PREINSTALL",
-    "postinstall": "./bin/faros_event_helper.sh RUN_STEP_SUCCESS --step POSTINSTALL"
+    "postinstall": "EXIT_CODE=1; ./bin/faros_event_helper.sh RUN_STEP_END --step POSTINSTALL"
   },
   "repository": {
     "type": "git",
