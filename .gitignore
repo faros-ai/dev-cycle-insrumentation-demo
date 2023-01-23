@@ -1,5 +1,6 @@
 # Faros
 .faros_current_branches
+lib/
 
 # Logs
 logs

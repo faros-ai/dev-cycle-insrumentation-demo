@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc -p src",
+    "clean": "rm -rf lib node_modules out",
+    "test": "jest --verbose --color",
     "preinstall": "./bin/faros_event_helper.sh RUN_STEP_START --step PREINSTALL",
     "postinstall": "./bin/faros_event_helper.sh RUN_STEP_SUCCESS --step POSTINSTALL"
   },
@@ -21,5 +23,18 @@
   "homepage": "https://github.com/faros-ai/lighthouse#readme",
   "devDependencies": {
     "typescript": "^4.9.4"
+  },
+  "dependencies": {
+    "@types/jest": "^29.2.6",
+    "jest": "^29.3.1",
+    "ts-jest": "^29.0.5"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "testPathIgnorePatterns": [
+      ".d.ts"
+    ],
+    "testTimeout": 10000
   }
 }
