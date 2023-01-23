@@ -2,10 +2,7 @@
 
 set -e
 
-printf '\nPost-checkout Hook\n'
-
 checkout_type=$3
-
 if [ "$checkout_type" -ne 1 ]; then
     exit 0 # Not a branch checkout
 fi
