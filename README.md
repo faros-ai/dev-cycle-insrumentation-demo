@@ -13,9 +13,9 @@ export FAROS_GRAPH="..."
 
 2. Run `./setup_hooks.sh` once to setup git hooks.
 
-All the invocations on `git` and `npm` commands will send events to Faros, e.g
+All the invocations on `git` and `npm` commands will send events to Faros, e.g:
  - `git checkout -b ...`
  - `npm i`
  - `npm run build`
  - `npm run test`
- - `git commit -m ...`
+ - `git commit -m ...` 
