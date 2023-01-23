@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+set -e
+
+printf '\nPost-checkout Hook\n'
+
+checkout_type=$3
+
+if [ "$checkout_type" -ne 1 ]; then
+    exit 0 # Not a branch checkout
+fi
+
+# TODO: determine if new branch via pre-checkout hook
+branch=$(git rev-parse --abbrev-ref HEAD)
+
+printf "Creating build with name %s\n" "$branch"
