@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "preinstall": "./event.sh RUN_STEP_START --step PREINSTALL",
-    "postinstall": "./event.sh RUN_STEP_SUCCESS --step POSTINSTALL"
+    "preinstall": "./bin/faros_event_helper.sh RUN_STEP_START --step PREINSTALL",
+    "postinstall": "./bin/faros_event_helper.sh RUN_STEP_SUCCESS --step POSTINSTALL"
   },
   "repository": {
     "type": "git",
