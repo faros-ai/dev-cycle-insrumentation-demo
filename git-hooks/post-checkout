@@ -11,4 +11,4 @@ fi
 branch=$(git rev-parse --abbrev-ref HEAD)
 
 root=$(git rev-parse --show-toplevel)
-$root/bin/faros_event_helper.sh RUN_START
+$root/bin/faros_event_helper.sh RUN_STEP_START --step "CHECKOUT"
