@@ -60,28 +60,28 @@ function processType() {
 
 function run_start(){
     echo "Sending run start event"
-    ./faros_event.sh CI \
+    ./bin/faros_event.sh CI \
         --run_status "Running" \
         --run_start_time "Now"
 }
 
 function run_success(){
     echo "Sending run success event"
-    ./faros_event.sh CI \
+    ./bin/faros_event.sh CI \
         --run_status "Success" \
         --run_end_time "Now"
 }
 
 function run_failed(){
     echo "Sending run failed event"
-    ./faros_event.sh CI \
+    ./bin/faros_event.sh CI \
         --run_status "Failed" \
         --run_end_time "Now"
 }
 
 function run_step_start(){
     echo "Sending run step start event"
-    ./faros_event.sh CI \
+    ./bin/faros_event.sh CI \
         --run_step_id "${run_step}  $(jq -nr 'now | todate')" \
         --run_step_name "${run_step}" \
         --run_step_status "Running" \
@@ -90,7 +90,7 @@ function run_step_start(){
 
 function run_step_success(){
     echo "Sending run step success event"
-    ./faros_event.sh CI \
+    ./bin/faros_event.sh CI \
         --run_step_id "${run_step}  $(jq -nr 'now | todate')" \
         --run_step_name "${run_step}" \
         --run_step_status "Success" \
@@ -99,7 +99,7 @@ function run_step_success(){
 
 function run_step_failed(){
     echo "Sending run failed event"
-    ./faros_event.sh CI \
+    ./bin/faros_event.sh CI \
         --run_step_id "${run_step}  $(jq -nr 'now | todate')" \
         --run_step_name "${run_step}" \
         --run_step_status "Failed" \
@@ -108,7 +108,7 @@ function run_step_failed(){
 
 function send_commit(){
     echo "Sending commit information"
-    ./faros_event.sh CI \
+    ./bin/faros_event.sh CI \
         --commit "$FAROS_VCS_SOURCE://$FAROS_VCS_ORG/$FAROS_VCS_REPO/$commit_sha" \
 
     curl -X 'POST' \
