@@ -136,7 +136,7 @@ function send_commit(){
             }
           }
         ]
-      }'
+      }' | jq
 }
 
 function main(){
