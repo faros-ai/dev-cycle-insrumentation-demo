@@ -5,4 +5,5 @@ set -e
 commit_sha=$(git rev-parse HEAD)
 commit_msg=$(git log --format=%s -n 1 "$commit_sha")
 
-printf "./event.sh commit %s %s\n" "$commit_sha" "$commit_msg"
+root=$(git rev-parse --show-toplevel)
+$root/bin/faros_event_helper.sh SEND_COMMIT --commit-sha "$commit_sha" --commit-message "$commit_msg"

@@ -15,7 +15,7 @@ branch=$(git rev-parse --abbrev-ref HEAD)
 if grep -qE "^$branch$" "$cur_branches_file"; then
     printf "Not new branch\n"
 else
-    printf "./event.sh run-start %s\n" "$branch"
+    "$root"/bin/faros_event_helper.sh RUN_START
 fi
 
 git branch -l --format='%(refname:short)' >"$cur_branches_file"
