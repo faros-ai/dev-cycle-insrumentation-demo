@@ -1,4 +1,8 @@
 #!/usr/bin/env bash
+###############################################################################
+## Script for sending events to Faros Events API
+## https://github.com/faros-ai/faros-events-cli
+###############################################################################
 
 # This is used for testing purposes. It is a noop unless under testing with shellspec
 # See https://github.com/shellspec/shellspec#intercepting for details.
