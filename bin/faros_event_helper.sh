@@ -131,7 +131,7 @@ function send_commit(){
               "author": {
                 "uid": "sean",
                 "source": "GitHub"
-              }
+              },
               "repository": {
                 "name": "'$FAROS_VCS_REPO'",
                 "organization": {
