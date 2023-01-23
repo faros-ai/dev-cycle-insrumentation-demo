@@ -1,3 +1,3 @@
 # lighthouse
 
-A demo reposit with development cycle Faros events instrumentation 
+A demo repository with development cycle Faros events instrumentation 
