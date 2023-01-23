@@ -13,6 +13,7 @@ export FAROS_VCS_ORG='faros-ai'
 export FAROS_VCS_REPO='lighthouse'
 export FAROS_VCS_SOURCE='Mock'
 
+
 NOW="$(jq -n 'now * 1000 | floor')"
 
 function parseFlags() {
@@ -107,9 +108,12 @@ function run_step_failed(){
 function send_commit(){
     echo "Sending commit information"
     ./bin/faros_event.sh CI \
-        --commit "$FAROS_VCS_SOURCE://$FAROS_VCS_ORG/$FAROS_VCS_REPO/$commit_sha"
-
-    echo "$commit_message"
+        --commit "$FAROS_VCS_SOURCE://$FAROS_VCS_ORG/$FAROS_VCS_REPO/$commit_sha" \
+        --run_step_id "${run_step}  $(jq -nr 'now | todate')" \
+        --run_step_name "COMMIT" \
+        --run_step_status "Success" \
+        --run_step_start_time "Now" \
+        --run_step_end_time "Now"
 
     curl -s -X 'POST' \
       "$FAROS_URL/graphs/$FAROS_GRAPH/revisions" \
