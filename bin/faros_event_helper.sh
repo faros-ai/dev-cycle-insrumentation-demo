@@ -9,7 +9,6 @@ export FAROS_RUN_PIPELINE="$(hostname)"
 export FAROS_RUN_ORG='faros-ai'
 export FAROS_RUN_SOURCE='Mock'
 export FAROS_RUN_ID="$(git branch --show-current)"
-export FAROS_RUN_NAME=$FAROS_RUN_ID
 export FAROS_VCS_ORG='faros-ai'
 export FAROS_VCS_REPO='lighthouse'
 export FAROS_VCS_SOURCE='Mock'
