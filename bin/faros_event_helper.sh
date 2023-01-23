@@ -128,6 +128,10 @@ function send_commit(){
               "sha": "'$commit_sha'",
               "message": "'"$commit_message"'",
               "createdAt": '$NOW',
+              "author": {
+                "uid": "sean",
+                "source": "GitHub"
+              }
               "repository": {
                 "name": "'$FAROS_VCS_REPO'",
                 "organization": {
