@@ -5,8 +5,6 @@
 # - FAROS_GRAPH
 # - FAROS_URL
 
-export FAROS_GRAPH='will'
-export FAROS_URL='https://dev.api.faros.ai'
 export FAROS_RUN_PIPELINE="$(hostname)"
 export FAROS_RUN_ORG='faros-ai'
 export FAROS_RUN_SOURCE='Mock'
