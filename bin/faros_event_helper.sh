@@ -13,19 +13,20 @@ export FAROS_VCS_ORG='faros-ai'
 export FAROS_VCS_REPO='lighthouse'
 export FAROS_VCS_SOURCE='Mock'
 
+NOW="$(jq -n 'now * 1000 | floor')"
+
 # Capture exit code from previous command
-if !(($?)); then
+if !(($EXIT_CODE)); then
     status="Success"
 else
     status="Failed"
 fi
 
-NOW="$(jq -n 'now * 1000 | floor')"
-
 function parseFlags() {
     while (($#)); do
         case "$1" in
             --step) run_step="$2" && shift 2 ;;
+            --step-id) run_step_unique_id="$2" && shift 2 ;;
             --commit-sha) commit_sha="$2" && shift 2 ;;
             --commit-message) commit_message="$2" && shift 2 ;;
             *)
@@ -43,6 +44,9 @@ function processType() {
                 shift ;;
             RUN_END)
                 run_end
+                shift ;;
+            RUN_STEP)
+                run_step
                 shift ;;
             RUN_STEP_START)
                 run_step_start
@@ -76,10 +80,20 @@ function run_end(){
         --run_end_time "Now"
 }
 
+function run_step(){
+    echo "Sending run step event"
+    ./bin/faros_event.sh CI \
+        --run_step_id "${run_step}  $(jq -nr 'now | todate')" \
+        --run_step_name "${run_step}" \
+        --run_status "$status" \
+        --run_start_time "Now" \
+        --run_end_time "Now"
+}
+
 function run_step_start(){
     echo "Sending run step start event"
     ./bin/faros_event.sh CI \
-        --run_step_id "${run_step}  $(jq -nr 'now | todate')" \
+        --run_step_id "${run_step} ${run_step_unique_id}" \
         --run_step_name "${run_step}" \
         --run_step_status "Running" \
         --run_step_start_time "Now"
@@ -88,7 +102,7 @@ function run_step_start(){
 function run_step_end(){
     echo "Sending run step success event"
     ./bin/faros_event.sh CI \
-        --run_step_id "${run_step}  $(jq -nr 'now | todate')" \
+        --run_step_id "${run_step} ${run_step_unique_id}" \
         --run_step_name "${run_step}" \
         --run_step_status "$status" \
         --run_step_end_time "Now"
