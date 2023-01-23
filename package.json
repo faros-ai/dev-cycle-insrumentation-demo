@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "tsc -p src",
+    "build": "./bin/faros_event_helper.sh RUN_STEP_START --step BUILD && tsc -p src; ./bin/faros_event_helper.sh RUN_STEP_END --step BUILD",
+    "test": "./bin/faros_event_helper.sh RUN_STEP_START --step TEST && jest --verbose --color; ./bin/faros_event_helper.sh RUN_STEP_END --step TEST",
     "clean": "rm -rf lib node_modules out",
-    "test": "jest --verbose --color",
     "preinstall": "./bin/faros_event_helper.sh RUN_STEP_START --step PREINSTALL",
     "postinstall": "./bin/faros_event_helper.sh RUN_STEP_SUCCESS --step POSTINSTALL"
   },

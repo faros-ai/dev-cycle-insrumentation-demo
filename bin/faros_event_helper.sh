@@ -13,6 +13,12 @@ export FAROS_VCS_ORG='faros-ai'
 export FAROS_VCS_REPO='lighthouse'
 export FAROS_VCS_SOURCE='Mock'
 
+# Capture exit code from previous command
+if !(($?)); then
+    status="Success"
+else
+    status="Failed"
+fi
 
 NOW="$(jq -n 'now * 1000 | floor')"
 
@@ -35,26 +41,25 @@ function processType() {
             RUN_START)
                 run_start
                 shift ;;
-            RUN_SUCCESS)
-                run_success
-                shift ;;
-            RUN_FAILED)
-                run_failed
+            RUN_END)
+                run_end
                 shift ;;
             RUN_STEP_START)
                 run_step_start
                 exit 0 ;;
-            RUN_STEP_SUCCESS)
-                run_step_success
-                shift ;;
-            RUN_STEP_FAILED)
-                run_step_failed
+            RUN_STEP_END)
+                run_step_end
                 shift ;;
             SEND_COMMIT)
                 send_commit
                 shift ;;
         esac
     done
+
+    if [ -n "${UNRECOGNIZED:-}" ]; then
+        echo "Unrecognized arg(s): ${UNRECOGNIZED[*]}"
+        exit 1
+    fi
 }
 
 function run_start(){
@@ -64,17 +69,10 @@ function run_start(){
         --run_start_time "Now"
 }
 
-function run_success(){
+function run_end(){
     echo "Sending run success event"
     ./bin/faros_event.sh CI \
-        --run_status "Success" \
-        --run_end_time "Now"
-}
-
-function run_failed(){
-    echo "Sending run failed event"
-    ./bin/faros_event.sh CI \
-        --run_status "Failed" \
+        --run_status "$status"
         --run_end_time "Now"
 }
 
@@ -87,21 +85,12 @@ function run_step_start(){
         --run_step_start_time "Now"
 }
 
-function run_step_success(){
+function run_step_end(){
     echo "Sending run step success event"
     ./bin/faros_event.sh CI \
         --run_step_id "${run_step}  $(jq -nr 'now | todate')" \
         --run_step_name "${run_step}" \
-        --run_step_status "Success" \
-        --run_step_end_time "Now"
-}
-
-function run_step_failed(){
-    echo "Sending run failed event"
-    ./bin/faros_event.sh CI \
-        --run_step_id "${run_step}  $(jq -nr 'now | todate')" \
-        --run_step_name "${run_step}" \
-        --run_step_status "Failed" \
+        --run_step_status "$status" \
         --run_step_end_time "Now"
 }
 
