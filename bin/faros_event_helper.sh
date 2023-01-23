@@ -113,7 +113,7 @@ function send_commit(){
 
     echo "$commit_message"
 
-    curl -X 'POST' \
+    curl -s -X 'POST' \
       "$FAROS_URL/graphs/$FAROS_GRAPH/revisions" \
       -H "Accept: application/json" \
       -H "Content-Type: application/json" \
