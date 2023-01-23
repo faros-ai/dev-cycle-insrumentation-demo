@@ -109,9 +109,11 @@ function run_step_failed(){
 function send_commit(){
     echo "Sending commit information"
     ./bin/faros_event.sh CI \
-        --commit "$FAROS_VCS_SOURCE://$FAROS_VCS_ORG/$FAROS_VCS_REPO/$commit_sha" \
+        --commit "$FAROS_VCS_SOURCE://$FAROS_VCS_ORG/$FAROS_VCS_REPO/$commit_sha"
 
-    curl -v -X 'POST' \
+    echo $commit_message
+
+    curl -X 'POST' \
       "$FAROS_URL/graphs/$FAROS_GRAPH/revisions" \
       -H "Accept: application/json" \
       -H "Content-Type: application/json" \
