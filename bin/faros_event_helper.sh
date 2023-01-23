@@ -111,7 +111,7 @@ function send_commit(){
     ./bin/faros_event.sh CI \
         --commit "$FAROS_VCS_SOURCE://$FAROS_VCS_ORG/$FAROS_VCS_REPO/$commit_sha" \
 
-    curl -X 'POST' \
+    curl -v -X 'POST' \
       "$FAROS_URL/graphs/$FAROS_GRAPH/revisions" \
       -H "Accept: application/json" \
       -H "Content-Type: application/json" \
