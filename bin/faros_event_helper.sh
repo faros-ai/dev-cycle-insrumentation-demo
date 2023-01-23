@@ -111,7 +111,7 @@ function send_commit(){
     ./bin/faros_event.sh CI \
         --commit "$FAROS_VCS_SOURCE://$FAROS_VCS_ORG/$FAROS_VCS_REPO/$commit_sha"
 
-    echo $commit_message
+    echo "$commit_message"
 
     curl -X 'POST' \
       "$FAROS_URL/graphs/$FAROS_GRAPH/revisions" \
@@ -124,7 +124,7 @@ function send_commit(){
           {
             "vcs_Commit": {
               "sha": "'$commit_sha'",
-              "message": "'$commit_message'",
+              "message": "'"$commit_message"'",
               "createdAt": '$NOW',
               "repository": {
                 "name": "'$FAROS_VCS_REPO'",
