@@ -12,6 +12,7 @@ export FAROS_RUN_ID="$(git branch --show-current)"
 export FAROS_VCS_ORG='faros-ai'
 export FAROS_VCS_REPO='lighthouse'
 export FAROS_VCS_SOURCE='Mock'
+export FAROS_SILENT=${FAROS_SILENT:-1}
 
 NOW="$(jq -n 'now * 1000 | floor')"
 
@@ -66,22 +67,28 @@ function processType() {
     fi
 }
 
+function log() {
+    if ! (($FAROS_SILENT)); then
+        echo "$*"
+    fi
+}
+
 function run_start(){
-    echo "Sending run start event"
+    log "Sending run start event"
     ./bin/faros_event.sh CI \
         --run_status "Running" \
         --run_start_time "Now"
 }
 
 function run_end(){
-    echo "Sending run success event"
+    log "Sending run success event"
     ./bin/faros_event.sh CI \
         --run_status "$status"
         --run_end_time "Now"
 }
 
 function run_step(){
-    echo "Sending run step event"
+    log "Sending run step event"
     ./bin/faros_event.sh CI \
         --run_step_id "${run_step}  $(jq -nr 'now | todate')" \
         --run_step_name "${run_step}" \
@@ -91,7 +98,7 @@ function run_step(){
 }
 
 function run_step_start(){
-    echo "Sending run step start event"
+    log "Sending run step start event"
     ./bin/faros_event.sh CI \
         --run_step_id "${run_step} ${run_step_unique_id}" \
         --run_step_name "${run_step}" \
@@ -100,7 +107,7 @@ function run_step_start(){
 }
 
 function run_step_end(){
-    echo "Sending run step success event"
+    log "Sending run step success event"
     ./bin/faros_event.sh CI \
         --run_step_id "${run_step} ${run_step_unique_id}" \
         --run_step_name "${run_step}" \
@@ -109,7 +116,7 @@ function run_step_end(){
 }
 
 function send_commit(){
-    echo "Sending commit information"
+    log "Sending commit information"
     ./bin/faros_event.sh CI \
         --commit "$FAROS_VCS_SOURCE://$FAROS_VCS_ORG/$FAROS_VCS_REPO/$commit_sha" \
         --run_step_id "${run_step}  $(jq -nr 'now | todate')" \
