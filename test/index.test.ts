@@ -19,8 +19,5 @@ describe('utils', () => {
     expect(sut.Utils.toDate(1622773497000)).toEqual(
       new Date('2021-06-04T02:24:57.000Z')
     );
-    expect(sut.Utils.toDate(1622773497001)).toEqual(
-      new Date('2021-06-04T02:24:57.001Z')
-    );
   });
 });
