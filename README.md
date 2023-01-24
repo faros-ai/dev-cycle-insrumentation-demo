@@ -1,6 +1,6 @@
 # Lighthouse
 
-A demonstration of Faros events instrumentation for measuring full development cycle.
+A demo of Faros events instrumentation for measuring full development cycle.
 
 The invocations of `git` and `npm` commands will send events to Faros, e.g:
 
