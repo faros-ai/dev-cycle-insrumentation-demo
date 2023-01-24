@@ -93,8 +93,8 @@ function run_step(){
         --run_step_id "${run_step} $(jq -nr 'now | todate')" \
         --run_step_name "${run_step}" \
         --run_status "$status" \
-        --run_start_time "Now" \
-        --run_end_time "Now"
+        --run_step_start_time "Now" \
+        --run_step_end_time "Now"
 }
 
 function run_step_start(){
