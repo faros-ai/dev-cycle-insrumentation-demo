@@ -90,7 +90,7 @@ function run_end(){
 function run_step(){
     log "Sending run step event"
     ./bin/faros_event.sh CI \
-        --run_step_id "${run_step}  $(jq -nr 'now | todate')" \
+        --run_step_id "${run_step} $(jq -nr 'now | todate')" \
         --run_step_name "${run_step}" \
         --run_status "$status" \
         --run_start_time "Now" \
@@ -119,7 +119,7 @@ function send_commit(){
     log "Sending commit information"
     ./bin/faros_event.sh CI \
         --commit "$FAROS_VCS_SOURCE://$FAROS_VCS_ORG/$FAROS_VCS_REPO/$commit_sha" \
-        --run_step_id "${run_step}  $(jq -nr 'now | todate')" \
+        --run_step_id "${run_step} $(jq -nr 'now | todate')" \
         --run_step_name "COMMIT" \
         --run_step_status "Success" \
         --run_step_start_time "Now" \
