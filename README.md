@@ -1,4 +1,4 @@
-# Lighthouse
+# Full Development Cycle Instrumentation
 
 A demo of Faros events instrumentation for measuring full development cycle.
 
