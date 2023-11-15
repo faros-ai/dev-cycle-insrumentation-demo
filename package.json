@@ -18,9 +18,9 @@
   "author": "“Will Marks” <“will@faros.ai”>",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/faros-ai/lighthouse/issues"
+    "url": "https://github.com/faros-ai/dev-cycle-insrumentation-demo/issues"
   },
-  "homepage": "https://github.com/faros-ai/lighthouse#readme",
+  "homepage": "https://github.com/faros-ai/dev-cycle-insrumentation-demo#readme",
   "devDependencies": {
     "typescript": "^4.9.4"
   },
